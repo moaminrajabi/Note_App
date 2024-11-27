@@ -3,17 +3,25 @@ import { expect, test } from "vitest";
 import NoteApp from "../NoteApp";
 import NotesProvider from "../../context/NotesContext";
 
+function addNote(notes) {
+  const inputTitle = screen.getByPlaceholderText(/Title/i);
+  const inputDescription = screen.getByPlaceholderText(/Description/i);
+  const button = screen.getByRole("button", { name: /Add New Note/i });
+
+  notes.map((note) => {
+    fireEvent.change(inputTitle, { target: { value: note.title } });
+    fireEvent.change(inputDescription, { target: { value: note.description } });
+    fireEvent.click(button);
+  });
+}
+
 test("Note App #1 : should input be empty after submit", () => {
   render(
     <NotesProvider>
       <NoteApp sortBy="latest" />
     </NotesProvider>
   );
+  addNote([{ title: "title #1", description: "description #1" }]);
   const inputTitle = screen.getByPlaceholderText(/Title/i);
-  const inputDescription = screen.getByPlaceholderText(/Description/i);
-  fireEvent.change(inputTitle, { target: { value: "Note one" } });
-  fireEvent.change(inputDescription, { target: { value: "Note one descs" } });
-  const button = screen.getByRole("button", { name: /Add New Note/i });
-  fireEvent.click(button);
   expect(inputTitle.value).toBe("");
 });
