@@ -38,7 +38,10 @@ function NoteItem({ note }) {
     day: "numeric",
   };
   return (
-    <div className={`note-item ${note.completed ? "completed" : ""}`}>
+    <div
+      className={`note-item ${note.completed ? "completed" : ""}`}
+      data-testid="note_item"
+    >
       <div className="note-item__header">
         <div>
           <p className="title">{note.title}</p>

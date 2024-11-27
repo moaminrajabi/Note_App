@@ -48,6 +48,19 @@ test("Note App #3 : should not have active class", () => {
     </NotesProvider>
   );
   addNote([{ title: "title #1", description: "description #1" }]);
-  const divElement = screen.getByText(/title #1/i);
-  expect(divElement).not.toHaveClass("completed")
+  const divElement = screen.getByTestId(/note_item/i);
+  expect(divElement).not.toHaveClass("completed");
+});
+
+test("Note App #4 : should not have active class", () => {
+  render(
+    <NotesProvider>
+      <NoteApp sortBy="latest" />
+    </NotesProvider>
+  );
+  addNote([{ title: "title #1", description: "description #1" }]);
+  const checkbox = screen.getByRole("checkbox");
+  fireEvent.click(checkbox);
+  const divElement = screen.getByTestId(/note_item/i);
+  expect(divElement).toHaveClass("completed");
 });
