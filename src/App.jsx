@@ -6,6 +6,7 @@ import NoteStatus from "./components/NoteStatus";
 import NoteHeader from "./components/NoteHeader";
 import NotesProvider from "./context/NotesContext";
 import NoteApp from "./components/NoteApp";
+import AppProviders from "./Provider/AppProviders";
 
 function App() {
   // lifting state :
@@ -29,12 +30,12 @@ function App() {
   // }
 
   return (
-    <NotesProvider>
+    <AppProviders>
       <div className="container">
         <NoteHeader sortBy={sortBy} onSort={(e) => setSortBy(e.target.value)} />
         <NoteApp sortBy={sortBy} />
       </div>
-    </NotesProvider>
+    </AppProviders>
   );
 }
 
